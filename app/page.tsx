@@ -9,7 +9,16 @@ import Footer from '@/components/Footer'
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-[#0a0a0a] text-white relative">
+      {/* Fond animé */}
+      <div className="animated-bg" />
+      <div className="grid-bg" />
+      
+      {/* Orbes flottantes */}
+      <div className="floating-orb orb-1" />
+      <div className="floating-orb orb-2" />
+      <div className="floating-orb orb-3" />
+      
       <Header />
       <Hero />
       <About />
