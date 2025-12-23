@@ -1,8 +1,8 @@
-# Portfolio de Majda Mhaili 💜✨
+# Portfolio de Majda Mhaili 💜
 
 Un portfolio moderne et élégant créé avec Next.js, TypeScript et Tailwind CSS.
 
-## 🚀 Démarrage rapide
+## Démarrage rapide
 
 ### Installation des dépendances
 
@@ -25,7 +25,7 @@ npm run build
 npm start
 ```
 
-## 📁 Structure du projet
+## Structure du projet
 
 ```
 portfolio/
@@ -49,73 +49,11 @@ portfolio/
 └── next.config.js
 ```
 
-## ✨ Fonctionnalités
-
-- ✅ Design moderne et féminin
-- ✅ Responsive (mobile, tablette, desktop)
-- ✅ Animations fluides
-- ✅ Navigation smooth scroll
-- ✅ Section projets extensible
-- ✅ Formulaire de contact
-- ✅ Optimisé pour le SEO
-- ✅ Performance optimale
-
-## 🎨 Personnalisation
-
-### Modifier les couleurs
-
-Éditez [tailwind.config.ts](tailwind.config.ts) pour changer les couleurs du thème :
-
-```typescript
-colors: {
-  primary: { ... },  // Couleurs principales (violet)
-  accent: { ... },   // Couleurs d'accent (rose)
-}
-```
-
-### Ajouter un projet
-
-1. Ouvrez [components/Projects.tsx](components/Projects.tsx)
-2. Ajoutez un objet dans le tableau `initialProjects` :
-
-```typescript
-{
-  title: 'Mon nouveau projet',
-  description: 'Description du projet',
-  tags: ['React', 'TypeScript'],
-  image: '🚀',
-  category: 'web',
-  featured: true,
-}
-```
-
-### Modifier vos informations
-
-- **Coordonnées** : [components/Contact.tsx](components/Contact.tsx)
-- **Expériences** : [components/Experience.tsx](components/Experience.tsx)
-- **Formation** : [components/Education.tsx](components/Education.tsx)
-- **Compétences** : [components/About.tsx](components/About.tsx)
-
 ## 🚀 Déploiement sur VPS
 
-### Option 1 : Avec PM2 (recommandé)
 
-```bash
-# Build du projet
-npm run build
 
-# Installation de PM2
-npm install -g pm2
-
-# Démarrage avec PM2
-pm2 start npm --name "portfolio" -- start
-
-# Sauvegarder la configuration PM2
-pm2 save
-pm2 startup
-```
-
-### Option 2 : Avec Docker
+###  Avec Docker
 
 Créez un fichier `Dockerfile` :
 
@@ -139,25 +77,6 @@ docker build -t portfolio .
 docker run -d -p 3000:3000 portfolio
 ```
 
-### Option 3 : Avec Nginx (reverse proxy)
-
-Configuration Nginx (`/etc/nginx/sites-available/portfolio`) :
-
-```nginx
-server {
-    listen 80;
-    server_name votre-domaine.com;
-
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-    }
-}
-```
 
 Activez le site :
 
@@ -167,20 +86,15 @@ sudo nginx -t
 sudo systemctl restart nginx
 ```
 
-## 📝 Technologies utilisées
+##  Technologies utilisées
 
 - **Framework** : Next.js 14
 - **Langage** : TypeScript
 - **Styling** : Tailwind CSS
-- **Icônes** : Lucide React
-- **Polices** : Google Fonts (Inter, Playfair Display)
 
-## 🎯 Prochaines étapes suggérées
+##  Prochaines étapes suggérées
 
-1. Ajouter vos propres projets
-2. Personnaliser les couleurs selon vos préférences
-3. Ajouter votre photo dans la section Hero
-4. Intégrer EmailJS pour le formulaire de contact
+1. Ajouter des projets
 5. Ajouter Google Analytics
 6. Créer un blog (optionnel)
 7. Ajouter des animations supplémentaires avec Framer Motion
