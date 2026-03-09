@@ -22,16 +22,16 @@ export default function Footer() {
   return (
     <footer className="relative pt-16 sm:pt-20 pb-8 px-4 sm:px-6">
       <div className="section-divider absolute top-0 left-0 right-0" />
-      
+
       <div className="container mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 mb-10 sm:mb-12">
           {/* À propos */}
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-xl overflow-hidden ring-2 ring-primary-500/50">
-                <Image 
-                  src="/images/profile.jpg" 
-                  alt="Majda" 
+                <Image
+                  src="/Portfolio/images/profile.jpg"
+                  alt="Majda"
                   width={40}
                   height={40}
                   className="w-full h-full object-cover"
@@ -134,7 +134,7 @@ export default function Footer() {
           <p className="text-gray-500 flex items-center gap-2 text-xs sm:text-sm text-center sm:text-left">
             Créé avec <Heart className="w-3 h-3 sm:w-4 sm:h-4 text-accent-500 fill-accent-500" /> par Majda Mhaili © {currentYear}
           </p>
-          
+
           {/* Scroll to top */}
           <button
             onClick={scrollToTop}

@@ -20,11 +20,11 @@ export default function Hero() {
             <div className="relative group">
               {/* Glow effect */}
               <div className="absolute -inset-4 bg-gradient-to-r from-primary-500 to-accent-500 rounded-3xl blur-2xl opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
-              
+
               {/* Photo container */}
               <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-3xl overflow-hidden ring-2 ring-white/10">
                 <Image
-                  src="/images/profile.jpg"
+                  src="/Portfolio/images/profile.jpg"
                   alt="Majda Mhaili - Développeuse Full-Stack"
                   fill
                   className="object-cover"
@@ -34,7 +34,7 @@ export default function Hero() {
                 {/* Overlay gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-dark-950/50 via-transparent to-transparent" />
               </div>
-              
+
               {/* Floating badge */}
               <div className="absolute -bottom-4 -right-4 sm:bottom-4 sm:right-4 glass-effect-strong px-4 py-2 rounded-full flex items-center gap-2">
                 <span className="relative flex h-2 w-2">
@@ -82,9 +82,9 @@ export default function Hero() {
                 Voir mes projets
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
               </a>
-              
+
               <a
-                href="/documents/CV_Majda_Mhaili.pdf"
+                href="/Portfolio/documents/CV_Majda_Mhaili.pdf"
                 download="CV_Majda_Mhaili.pdf"
                 className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 glass-effect rounded-full font-medium text-white hover:bg-white/10 transition-all duration-300 text-sm sm:text-base"
               >

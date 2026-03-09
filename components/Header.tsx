@@ -22,7 +22,7 @@ export default function Header() {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20)
-      
+
       const sections = navigation.map(n => n.href.replace('#', ''))
       for (const section of sections.reverse()) {
         const element = document.getElementById(section)
@@ -38,11 +38,10 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
           ? 'glass-effect-strong py-3'
           : 'bg-transparent py-4 md:py-5'
-      }`}
+        }`}
     >
       <nav className="container mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between">
@@ -50,9 +49,9 @@ export default function Header() {
           <Link href="#home" className="flex items-center space-x-2 sm:space-x-3 group">
             <div className="relative">
               <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl overflow-hidden ring-2 ring-primary-500/50 group-hover:ring-primary-400 group-hover:scale-110 transition-all duration-300">
-                <Image 
-                  src="/images/profile.jpg" 
-                  alt="Majda" 
+                <Image
+                  src="/Portfolio/images/profile.jpg"
+                  alt="Majda"
                   width={44}
                   height={44}
                   className="w-full h-full object-cover"
@@ -74,11 +73,10 @@ export default function Header() {
                 <a
                   key={item.name}
                   href={item.href}
-                  className={`px-3 xl:px-4 py-2 rounded-full font-medium transition-all duration-300 text-sm ${
-                    activeSection === item.href.replace('#', '')
+                  className={`px-3 xl:px-4 py-2 rounded-full font-medium transition-all duration-300 text-sm ${activeSection === item.href.replace('#', '')
                       ? 'bg-gradient-to-r from-primary-500 to-accent-500 text-white'
                       : 'text-gray-400 hover:text-white hover:bg-white/5'
-                  }`}
+                    }`}
                 >
                   {item.name}
                 </a>
@@ -117,11 +115,10 @@ export default function Header() {
                   key={item.name}
                   href={item.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`px-4 py-3 rounded-xl font-medium transition-all ${
-                    activeSection === item.href.replace('#', '')
+                  className={`px-4 py-3 rounded-xl font-medium transition-all ${activeSection === item.href.replace('#', '')
                       ? 'bg-gradient-to-r from-primary-500 to-accent-500 text-white'
                       : 'text-gray-400 hover:text-white hover:bg-white/5'
-                  }`}
+                    }`}
                 >
                   {item.name}
                 </a>

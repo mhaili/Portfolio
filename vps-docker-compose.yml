@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  gitlab:
+    image: 'gitlab/gitlab-ce:latest'
+    restart: always
+    hostname: '51.91.76.228'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://51.91.76.228'
+        gitlab_rails['gitlab_shell_ssh_port'] = 2222
+    ports:
+      - '80:80'
+      - '443:443'
+      - '2222:22'
+    volumes:
+      - '/srv/gitlab/config:/etc/gitlab'
+      - '/srv/gitlab/logs:/var/log/gitlab'
+      - '/srv/gitlab/data:/var/opt/gitlab'
+    shm_size: '256m'
+
+  registry:
+    image: registry:2
+    restart: always
+    ports:
+      - "5050:5000"
+    environment:
+      REGISTRY_STORAGE_DELETE_ENABLED: "true"
+    volumes:
+      - '/srv/registry/data:/var/lib/registry'
+
+  gitlab-runner:
+    image: gitlab/gitlab-runner:latest
+    restart: always
+    volumes:
+      - '/srv/gitlab-runner/config:/etc/gitlab-runner'
+      - '/var/run/docker.sock:/var/run/docker.sock'
