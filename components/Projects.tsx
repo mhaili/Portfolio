@@ -5,6 +5,24 @@ import { ExternalLink, Github, Plus, Rocket } from 'lucide-react'
 
 const initialProjects = [
   {
+    title: 'E-commerce Citerneo',
+    description: 'Développement du site e-commerce Citerneo avec C# et VueJs sur la plateforme Orchard.',
+    tags: ['C#', 'Vue.js', 'Orchard', 'E-commerce'],
+    image: '💧',
+    category: 'web',
+    featured: true,
+    demo: 'https://www.citerneo.com/accueil/?keyword=citerneo&gad_source=1&gclid=Cj0KCQjw37nNBhDkARIsAEBGI8NF1d9p6wG04fmLPQBhvsCdvaLf6l1MC8P_pqEwcRox_ki5GXmvdH8aAgghEALw_wcB',
+  },
+  {
+    title: 'Carpet Store',
+    description: 'Site e-commerce complet et privé développé de A à Z avec Next.js 16 et SQLite3.',
+    tags: ['Next.js 16', 'React', 'SQLite3', 'Tailwind'],
+    image: '🛖',
+    images: [], // Le carousel sera affiché ici une fois les captures d'écran ajoutées
+    category: 'web',
+    featured: true,
+  },
+  {
     title: 'Memory Game',
     description: 'Jeu de mémoire interactif avec animations fluides et système de score.',
     tags: ['JavaScript', 'HTML', 'CSS', 'Game'],
@@ -13,22 +31,6 @@ const initialProjects = [
     featured: true,
     demo: 'https://mhaili.github.io/memory-game/',
     github: 'https://github.com/mhaili/memory-game',
-  },
-  {
-    title: 'Sites E-commerce Citerneo',
-    description: 'Développement de 6 sites e-commerce avec C# et VueJs sur la plateforme Orchard.',
-    tags: ['C#', 'VueJs', 'Orchard', 'E-commerce'],
-    image: '🛍️',
-    category: 'web',
-    featured: true,
-  },
-  {
-    title: 'Refonte Site INRAE',
-    description: 'Migration et refonte complète des sites internet FR/ENG sous eZplatform.',
-    tags: ['eZplatform', 'Migration', 'Multilingue'],
-    image: '🔬',
-    category: 'web',
-    featured: true,
   },
   {
     title: 'Application Gendarmerie',
@@ -51,6 +53,23 @@ export default function Projects() {
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [projects] = useState(initialProjects)
 
+  // Carousel State
+  const [currentImageIndex, setCurrentImageIndex] = useState<{ [key: number]: number }>({})
+
+  const nextImage = (projectIndex: number, imagesLength: number) => {
+    setCurrentImageIndex(prev => ({
+      ...prev,
+      [projectIndex]: ((prev[projectIndex] || 0) + 1) % imagesLength
+    }))
+  }
+
+  const prevImage = (projectIndex: number, imagesLength: number) => {
+    setCurrentImageIndex(prev => ({
+      ...prev,
+      [projectIndex]: ((prev[projectIndex] || 0) - 1 + imagesLength) % imagesLength
+    }))
+  }
+
   const filteredProjects =
     selectedCategory === 'all'
       ? projects
@@ -59,7 +78,7 @@ export default function Projects() {
   return (
     <section id="projects" className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 relative">
       <div className="section-divider absolute top-0 left-0 right-0" />
-      
+
       <div className="container mx-auto">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16 md:mb-20">
@@ -80,11 +99,10 @@ export default function Projects() {
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full font-medium transition-all duration-300 text-xs sm:text-sm ${
-                  selectedCategory === category.id
+                className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full font-medium transition-all duration-300 text-xs sm:text-sm ${selectedCategory === category.id
                     ? 'bg-gradient-to-r from-primary-500 to-accent-500 text-white shadow-lg scale-105'
                     : 'glass-effect text-gray-400 hover:text-white hover:scale-105'
-                }`}
+                  }`}
               >
                 {category.label}
               </button>
@@ -97,24 +115,48 @@ export default function Projects() {
           {filteredProjects.map((project, index) => (
             <div
               key={index}
-              className="glass-effect-strong rounded-xl sm:rounded-2xl overflow-hidden card-hover group"
+              className="glass-effect-strong rounded-xl sm:rounded-2xl overflow-hidden card-hover group flex flex-col"
             >
-              {/* Image/Emoji du projet */}
-              <div className="relative h-36 sm:h-40 md:h-48 bg-gradient-to-br from-primary-500/20 via-accent-500/20 to-primary-500/20 flex items-center justify-center">
-                <span className="text-4xl sm:text-5xl md:text-6xl group-hover:scale-125 transition-transform duration-300">{project.image}</span>
+              {/* Image/Emoji du projet ou Carousel */}
+              <div className="relative h-48 sm:h-56 bg-gradient-to-br from-primary-500/20 via-accent-500/20 to-primary-500/20 flex items-center justify-center overflow-hidden">
+                {project.images && project.images.length > 0 ? (
+                  <>
+                    <img
+                      src={`/Portfolio${project.images[currentImageIndex[index] || 0]}`}
+                      alt={`${project.title} screenshot`}
+                      className="w-full h-full object-cover transition-opacity duration-300 group-hover:scale-105"
+                    />
+                    {/* Controles simples du carousel */}
+                    <button onClick={(e) => { e.preventDefault(); prevImage(index, project.images.length); }} className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                      ←
+                    </button>
+                    <button onClick={(e) => { e.preventDefault(); nextImage(index, project.images.length); }} className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                      →
+                    </button>
+                    {/* Indicateurs */}
+                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+                      {project.images.map((_, dotIdx) => (
+                        <div key={dotIdx} className={`w-1.5 h-1.5 rounded-full ${dotIdx === (currentImageIndex[index] || 0) ? 'bg-white' : 'bg-white/50'}`} />
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <span className="text-4xl sm:text-5xl md:text-6xl group-hover:scale-125 transition-transform duration-300">{project.image}</span>
+                )}
+
                 {project.featured && (
-                  <div className="absolute top-3 sm:top-4 right-3 sm:right-4 px-2 sm:px-3 py-1 glass-effect-strong rounded-full text-xs font-bold text-primary-400">
+                  <div className="absolute top-3 sm:top-4 right-3 sm:right-4 px-2 sm:px-3 py-1 glass-effect-strong rounded-full text-xs font-bold text-primary-400 z-10">
                     ⭐ Featured
                   </div>
                 )}
               </div>
 
               {/* Contenu */}
-              <div className="p-4 sm:p-5 md:p-6">
+              <div className="p-4 sm:p-5 md:p-6 flex flex-col flex-grow">
                 <h3 className="text-base sm:text-lg md:text-xl font-heading font-bold text-white mb-2 group-hover:text-gradient transition-all">
                   {project.title}
                 </h3>
-                <p className="text-gray-400 leading-relaxed mb-3 sm:mb-4 text-xs sm:text-sm md:text-base line-clamp-2">
+                <p className="text-gray-400 leading-relaxed mb-3 sm:mb-4 text-xs sm:text-sm md:text-base line-clamp-3">
                   {project.description}
                 </p>
 
@@ -130,41 +172,45 @@ export default function Projects() {
                   ))}
                 </div>
 
-                {/* Actions */}
-                {project.category !== 'upcoming' && (
-                  <div className="flex gap-2 sm:gap-3">
-                    {project.demo ? (
-                      <a 
-                        href={project.demo} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="flex-1 flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-primary-500 to-accent-500 text-white rounded-lg font-medium hover:shadow-lg transition-all text-xs sm:text-sm"
-                      >
-                        <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
-                        <span>Voir</span>
-                      </a>
-                    ) : (
-                      <button className="flex-1 flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-primary-500 to-accent-500 text-white rounded-lg font-medium hover:shadow-lg transition-all text-xs sm:text-sm opacity-50 cursor-not-allowed">
-                        <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
-                        <span>Privé</span>
-                      </button>
-                    )}
-                    {project.github ? (
-                      <a 
-                        href={project.github} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="px-3 sm:px-4 py-2 glass-effect rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-all"
-                      >
-                        <Github className="w-4 h-4 sm:w-5 sm:h-5" />
-                      </a>
-                    ) : (
-                      <button className="px-3 sm:px-4 py-2 glass-effect rounded-lg text-gray-400 opacity-50 cursor-not-allowed">
-                        <Github className="w-4 h-4 sm:w-5 sm:h-5" />
-                      </button>
-                    )}
-                  </div>
-                )}
+                {/* Actions - poussées en bas */}
+                <div className="mt-auto pt-2 border-t border-white/5">
+                  {project.category !== 'upcoming' && (
+                    <div className="flex gap-2 sm:gap-3">
+                      {project.demo ? (
+                        <a
+                          href={project.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-primary-500 to-accent-500 text-white rounded-lg font-medium hover:shadow-lg transition-all text-xs sm:text-sm"
+                        >
+                          <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
+                          <span>Voir</span>
+                        </a>
+                      ) : (
+                        <button className="flex-1 flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-primary-500 to-accent-500 text-white rounded-lg font-medium hover:shadow-lg transition-all text-xs sm:text-sm opacity-50 cursor-not-allowed">
+                          <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
+                          <span>Privé</span>
+                        </button>
+                      )}
+
+                      {/* Only render Github link if project.github exists */}
+                      {'github' in project && project.github ? (
+                        <a
+                          href={project.github as string}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-3 sm:px-4 py-2 glass-effect rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-all"
+                        >
+                          <Github className="w-4 h-4 sm:w-5 sm:h-5" />
+                        </a>
+                      ) : (
+                        <button className="px-3 sm:px-4 py-2 glass-effect rounded-lg text-gray-400 opacity-50 cursor-not-allowed">
+                          <Github className="w-4 h-4 sm:w-5 sm:h-5" />
+                        </button>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           ))}
