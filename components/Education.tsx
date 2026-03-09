@@ -39,9 +39,9 @@ const education = [
 ]
 
 const languages = [
-  { name: 'Arabe', level: 'Langue maternelle', percentage: 100 },
-  { name: 'Français', level: 'Niveau C1 (Courant)', percentage: 95 },
-  { name: 'Anglais', level: 'Niveau B2', percentage: 70},
+  { name: 'Arabe', level: 'Langue maternelle', percentage: 100, flag: '🇲🇦' },
+  { name: 'Français', level: 'Niveau C1 (Courant)', percentage: 95, flag: '🇫🇷' },
+  { name: 'Anglais', level: 'Niveau B2', percentage: 70, flag: '🇬🇧' },
 ]
 
 export default function Education() {
